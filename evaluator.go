@@ -56,9 +56,12 @@ func (a *App) getCombinedFlagInfo(flagName string) (*CombinedFlagInfo, error) {
 
 	// 3. Salvar no Cache
 	jsonData, err := json.Marshal(info)
-	if err := a.RedisClient.Set(ctx, cacheKey, jsonData, CACHE_TTL).Err(); err != nil {
-		log.Printf("Aviso: falha ao salvar cache no Redis: %v", err)
+	if err != nil {
+		log.Printf("Aviso: erro ao serializar info para cache: %v", err)
 	}
+
+	// Em seguida salva no Redis:
+	_ = a.RedisClient.Set(ctx, cacheKey, jsonData, CACHE_TTL).Err()
 	return info, nil
 }
 
