@@ -8,6 +8,7 @@ import (
 	"io" // Se você já atualizou do ioutil para io antes
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"sync"
 	"time"
@@ -17,6 +18,16 @@ const (
 	// Tempo de vida do cache em segundos
 	CACHE_TTL = 30 * time.Second
 )
+
+func buildInternalURL(base, path string) (string, error) {
+	parsed, err := url.Parse(base)
+	if err != nil {
+		return "", err
+	}
+	// Garante que o host é estritamente o esperado
+	parsed.Path = path
+	return parsed.String(), nil
+}
 
 // getDecision é o wrapper principal
 func (a *App) getDecision(userID, flagName string) (bool, error) {
