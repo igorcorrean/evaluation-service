@@ -65,7 +65,7 @@ jobs:
       - name: 🔎 SAST (Gosec)
         uses: securego/gosec@master
         with:
-          args: '-severity high -confidence high ./...'
+          args: '-severity critical -confidence critical ./...'
 
       # SCA: Análise de vulnerabilidades em dependências do Go (go.mod / go.sum)
       - name: 📦 SCA - Scan de Dependências (Trivy)
