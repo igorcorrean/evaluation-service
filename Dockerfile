@@ -9,9 +9,6 @@ WORKDIR /app
 # Copia os arquivos de dependências de módulo
 COPY go.mod go.sum ./
 
-# --- ISSO RESOLVE O SEU PROBLEMA ---
-# Organiza e limpa as hashes do go.sum antes de tentar baixar
-RUN go mod tidy
 RUN go mod download
 
 # Copia o resto do código fonte
