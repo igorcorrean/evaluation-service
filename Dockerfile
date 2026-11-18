@@ -1,5 +1,5 @@
 # Estágio 1: Compilação
-FROM golang:1.22-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 # Instala o git (às vezes pacotes do Go precisam dele para baixar dependências)
 RUN apk add --no-cache git
@@ -9,9 +9,6 @@ WORKDIR /app
 # Copia os arquivos de dependências de módulo
 COPY go.mod go.sum ./
 
-# --- ISSO RESOLVE O SEU PROBLEMA ---
-# Organiza e limpa as hashes do go.sum antes de tentar baixar
-RUN go mod tidy
 RUN go mod download
 
 # Copia o resto do código fonte
